@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: backend-feed
+  name: backend-feed
+spec:
+  selector:
+    matchLabels:
+      run: backend-feed
+  template:
+    metadata:
+      labels:
+        run: backend-feed
+    spec:
+      containers:
+      - name: udacity-restapi-feed
+        image: claudioacioli/udacity-restapi-feed
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "1024Mi"
+            cpu: "500m"
