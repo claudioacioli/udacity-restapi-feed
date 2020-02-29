@@ -5,6 +5,7 @@ metadata:
     service: backend-feed
   name: backend-feed
 spec:
+  replicas: 1
   selector:
     matchLabels:
       service: backend-feed
@@ -21,7 +22,7 @@ spec:
           - name: POSTGRESS_HOST
             value: "host"
           - name: POSTGRESS_USERNAME
-            value: "user"
+            value: "username"
           - name: POSTGRESS_PASSWORD
             value: "password"
           - name: POSTGRESS_DB
