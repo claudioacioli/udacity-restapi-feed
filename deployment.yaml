@@ -2,21 +2,30 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    run: backend-feed
+    service: backend-feed
   name: backend-feed
 spec:
   selector:
     matchLabels:
-      run: backend-feed
+      service: backend-feed
   template:
     metadata:
       labels:
-        run: backend-feed
+        service: backend-feed
     spec:
       containers:
       - name: udacity-restapi-feed
         image: claudioacioli/udacity-restapi-feed
         imagePullPolicy: Always
+        env:
+          - name: POSTGRESS_HOST
+            value: "host"
+          - name: POSTGRESS_USERNAME
+            value: "user"
+          - name: POSTGRESS_PASSWORD
+            value: "password"
+          - name: POSTGRESS_DB
+            value: "db"
         resources:
           requests:
             memory: "64Mi"
