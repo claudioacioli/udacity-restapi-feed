@@ -3,10 +3,10 @@
 Udagram is a simple cloud application developed alongside the Udacity Cloud Engineering Nanodegree. It allows users to register and log into a web client, post photos to the feed, and process photos using an image filtering microservice.
 
 The project is split into three parts:
-1. [The Simple Frontend](https://github.com/udacity/cloud-developer/tree/master/course-02/exercises/udacity-c2-frontend)
+1. this backend feed.
+2. [The Simple Frontend](https://github.com/claudioacioli/udacity-frontend)
 A basic Ionic client web application which consumes the RestAPI Backend. 
-2. [The RestAPI Backend](https://github.com/udacity/cloud-developer/tree/master/course-02/exercises/udacity-c2-restapi), a Node-Express server which can be deployed to a cloud service.
-3. [The Image Filtering Microservice](https://github.com/udacity/cloud-developer/tree/master/course-02/project/image-filter-starter-code), the final project for the course. It is a Node-Express application which runs a simple script to process images.
+3. [The User RestAPI Backend](https://github.com/claudioacioli/udacity-restapi-user) a backend user microservice to show us the content of users.
 
 
 ***
@@ -20,15 +20,6 @@ npm install
 ```
 >_tip_: **npm i** is shorthand for **npm install**
 
-### Installing useful tools
-#### 1. [Postbird](https://github.com/paxa/postbird)
-Postbird is a useful client GUI (graphical user interface) to interact with our provisioned Postgres database. We can establish a remote connection and complete actions like viewing data and changing schema (tables, columns, ect).
-
-#### 2. [Postman](https://www.getpostman.com/downloads/)
-Postman is a useful tool to issue and save requests. Postman can create GET, PUT, POST, etc. requests complete with bodies. It can also be used to test endpoints automatically. We've included a collection (`./udacity-c2-restapi.postman_collection.json `) which contains example requsts.
-
-***
-
 ## Running the Server Locally
 To run the server locally in developer mode, open terminal and run:
 ```bash
@@ -37,3 +28,35 @@ npm run dev
 
 Developer mode runs off the TypeScript source. Any saves will reset the server and run the latest version of the codebase. 
 
+
+## Running the Server Locally on Docker
+
+To run this on Docker, open terminal and run:
+
+```bash
+docker run --rm --publish 8080:8080 -v $HOME/.aws:/root/.aws --env POSTGRESS_HOST=$POSTGRESS_HOST --env POSTGRESS_USERNAME=$POSTGRESS_USERNAME --env POSTGRESS_PASSWORD=$POSTGRESS_PASSWORD --env POSTGRESS_DB=$POSTGRESS_DB --env AWS_REGION=$AWS_REGION --env AWS_PROFILE=$AWS_PROFILE --env AWS_BUCKET=$AWS_BUCKET --env JWT_SECRET=$JWT_SECRET --name feed claudioacioli/udacity-restapi-feed
+```
+
+
+## Running the Server Locally on Minikube
+
+To run this on Minikube, first start Minikube:
+
+```bash
+minikube start
+```
+
+Then, apply the deployment file:
+```bash
+kubectl apply -f deployment.yaml
+```
+
+Apply the service file:
+```bash
+kubectl apply -f service.yaml
+```
+
+Expose to run:
+```bash
+kubectl port-forward service/backend-feed 8080:8080
+```
